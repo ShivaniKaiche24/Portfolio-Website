@@ -24,10 +24,10 @@ module.exports = {
     },
     extend: {
       colors: { 
-         primary: "#1B1B1B", // You should define your custom colors in 'extend.colors'
-        accent: {  // Move this from fontFamily to extend.colors
-          DEFAULT: "#7B61FF",
-          hover: "#00e187",
+          primary: "#0D0D0D",   // dark gray/black primary color
+        accent: {
+          DEFAULT: "#7B61FF", // main accent color (purple)
+          hover: "#00e187",   // hover accent color (greenish)
         },
         // Make sure you add this if you use bg-primary
       },

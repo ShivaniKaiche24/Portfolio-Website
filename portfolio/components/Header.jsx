@@ -1,36 +1,54 @@
-import Link from "next/link"
-import { Button } from "./ui/button"
-
-//components
-import Nav from "./Nav"
-import MobileNav from "./MobileNav"
+"use client";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import Nav from "./Nav";
+import MobileNav from "./MobileNav";
+import { motion } from "framer-motion";
 
 const Header = () => {
   return (
-    <header className="py-8 xl:py-12 text-white sticky top-0 z-50 ">
-        <div className="w-full flex justify-between items-center px-8 xl:px-32 2xl:px-64">
+    <motion.header
+      initial={{ opacity: 0 }}
+      animate={{
+        opacity: 1,
+        
+        transition: { delay: 1, duration: 0.6, ease: "easeInOut" },
+      }}
+      className="py-8 xl:py-12 text-white bg-[#0b0b0b] sticky top-0 z-50"
+    >
+      <div className="container mx-auto flex items-center justify-between px-6 xl:px-32 2xl:px-56">
+        
+        {/* LEFT — Logo */}
+        <Link href="/">
+          <h1 className="text-3xl font-semibold font-mono">
+            Shivani<span className="text-purple-400">.</span>
+          </h1>
+        </Link>
 
-            {/*logo*/}
-            <Link href="/">
-            <h1 className="text-2xl font-semibold">
-                Shivani<span className="text-purple-400">.</span>
-                </h1>
-            </Link>
-            {/* desktop navBar & hire me button */}
-            <div className="hidden xl:flex items-center gap-8">
-            <Nav/>
-            <Link href="/contact">
-            <Button>Hire Me</Button>
-            </Link>
-            </div>
-
-            {/*mobile nav */}
-            <div className="xl:hidden">
-              <MobileNav/>
-              </div>
+        {/* CENTER — Desktop Navigation */}
+        <div className="hidden xl:flex flex-1 justify-center items-center">
+          <Nav />
         </div>
-    </header>
-  )
-}
 
-export default Header
+        {/* RIGHT — Hire Me Button */}
+        <div className="hidden xl:flex items-center">
+          <Link href="/contact">
+            <Button
+              size="lg"
+              className="flex items-center gap-2 px-6 py-2 font-semibold tracking-wide bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg hover:scale-105 hover:shadow-purple-400/50 transition-transform duration-300"
+            >
+              Hire Me
+            </Button>
+          </Link>
+        </div>
+
+        {/* MOBILE NAV */}
+        <div className="xl:hidden">
+          <MobileNav />
+        </div>
+      </div>
+    </motion.header>
+  );
+};
+
+export default Header;

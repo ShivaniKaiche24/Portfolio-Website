@@ -31,7 +31,7 @@ const Nav = () => {
     const pathname= usePathname();
     
   return (
-   <nav className="flex gap-8">
+   <nav className="flex gap-8 bg-gradient-to-b from-[#0a0a0a] via-[#0a0a0a] to-[#120016]">
       {links.map((link, index) => (
         <Link href={link.path} key={index}
          className={`${link.path === pathname && "#94A3B8 border-b-2 hover:text-purple-400 " }
@@ -43,4 +43,4 @@ const Nav = () => {
   );
 }
 
-export default Nav
+export default Nav;
