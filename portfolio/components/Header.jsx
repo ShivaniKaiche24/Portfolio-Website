@@ -3,43 +3,58 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import Nav from "./Nav";
 import MobileNav from "./MobileNav";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const controls = useAnimation();
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+
+      // Hide header when scrolling down, show when scrolling up
+      if (currentScroll > lastScrollY && currentScroll > 80) {
+        controls.start({
+          y: "-100%",
+          opacity: 0,
+          transition: { duration: 0.4, ease: "easeInOut" },
+        });
+      } else {
+        controls.start({
+          y: 0,
+          opacity: 1,
+          transition: { duration: 0.4, ease: "easeInOut" },
+        });
+      }
+
+      setLastScrollY(currentScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY, controls]);
+
   return (
     <motion.header
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        
-        transition: { delay: 1, duration: 0.6, ease: "easeInOut" },
-      }}
-      className="py-8 xl:py-12 text-white bg-[#0b0b0b] sticky top-0 z-50"
+      animate={controls}
+      initial={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeInOut" }}
+      className="fixed top-0 left-0 w-full z-50 text-white bg-black/40 backdrop-blur-md border-b border-white/10"
     >
-      <div className="container mx-auto flex items-center justify-between px-6 xl:px-32 2xl:px-56">
-        
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between py-4 xl:py-6 px-6 xl:px-36">
         {/* LEFT — Logo */}
         <Link href="/">
-          <h1 className="text-3xl font-semibold font-mono">
-            Shivani<span className="text-purple-400">.</span>
+          <h1 className="text-2xl font-semibold font-mono tracking-wide">
+            Shivani<span className="text-[#3B82F6]"></span>
           </h1>
         </Link>
 
-        {/* CENTER — Desktop Navigation */}
-        <div className="hidden xl:flex flex-1 justify-center items-center">
+        {/* RIGHT — Desktop Nav */}
+        <div className="hidden xl:flex items-center gap-8">
           <Nav />
-        </div>
-
-        {/* RIGHT — Hire Me Button */}
-        <div className="hidden xl:flex items-center">
-          <Link href="/contact">
-            <Button
-              size="lg"
-              className="flex items-center gap-2 px-6 py-2 font-semibold tracking-wide bg-gradient-to-r from-purple-500 to-purple-700 text-white shadow-lg hover:scale-105 hover:shadow-purple-400/50 transition-transform duration-300"
-            >
-              Hire Me
-            </Button>
-          </Link>
+          {/* Hire Me button removed */}
         </div>
 
         {/* MOBILE NAV */}

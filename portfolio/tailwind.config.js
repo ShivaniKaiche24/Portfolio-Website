@@ -24,7 +24,7 @@ module.exports = {
     },
     extend: {
       colors: { 
-          primary: "#0D0D0D",   // dark gray/black primary color
+          primary: "#22223b",   // dark gray/black primary color
         accent: {
           DEFAULT: "#7B61FF", // main accent color (purple)
           hover: "#00e187",   // hover accent color (greenish)
